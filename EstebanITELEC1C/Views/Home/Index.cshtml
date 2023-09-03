@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    DateTime date = DateTime.Now;
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome there!</h1>
+    <p>@date</p>
+    @{
+        if (date.Hour < 12)
+        {
+            <p>What a wonderful morning!</p>
+        }
+        else if (date.Hour > 12 && date.Hour < 18)
+        {
+            <p>Have a good afternoon!</p>
+        }
+        else
+        {
+            <p>It's nightime, Goodevening!</p>
+        }
+    }
+</div> 
