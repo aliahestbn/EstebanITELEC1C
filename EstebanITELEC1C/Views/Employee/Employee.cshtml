@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var FirstName = "Aliah";
+    var LastName = "Esteban";
+    DateTime Birthday = new DateTime(2003, 10, 30);
+    var IsTenured = true;
+    var SalaryPerHour = 1000;
+    var Email = "aliah.esteban.cics@ust.edu.ph";
+
+    var firstDay = new DateTime(1, 1, 1);
+    DateTime Now = DateTime.Now;
+    TimeSpan difference = Now.Subtract(Birthday);
+    var Age = (firstDay + difference).Year - 1;
+
+    string Username = Email.Split('@')[0];
+    string Domain = Email.Split('@')[1];
+
+    var SalaryPerDay = SalaryPerHour * 8;
+    var SalaryPerMonth = SalaryPerDay * 30;
+
+    if (IsTenured)
+    {
+        SalaryPerMonth += 500;
+    }
+
+}
+
+<h1> Hello! I am @FirstName @LastName. I am @Age years old. </h1>
+<br />
+    <p>
+        
+        
+        Email: @Email <br />
+        Domain: @Domain <br />
+        Username: @Username <br />
+
+        <br />
+        Name: @FirstName @LastName <br />
+        Status: @(IsTenured ? "Permanent" : "Probitionary") <br />
+        Daily Salary: $@SalaryPerDay <br />
+        Monthly Salary: $@SalaryPerMonth <br />
+    </p>
+
+
+

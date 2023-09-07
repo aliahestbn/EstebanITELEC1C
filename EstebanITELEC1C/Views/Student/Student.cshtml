@@ -1,0 +1,75 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var Name = "Aliah";
+    var PrelimGrade = 98;
+    var FinalGrade = 90;
+    var SemGrade = (PrelimGrade + FinalGrade) / 2;
+
+    var TransmutedGrade = 1.25;
+
+    if (SemGrade < 75)
+    {
+        TransmutedGrade = 5.00;
+    }
+    else if (SemGrade >= 75 && SemGrade <=78)
+    {
+        TransmutedGrade = 3.00;
+    }
+    else if (SemGrade >= 79 && SemGrade <= 81)
+    {
+        TransmutedGrade = 2.75;
+    }
+    else if (SemGrade >= 82 && SemGrade <= 83)
+    {
+        TransmutedGrade = 2.50;
+    }
+    else if (SemGrade >= 84 && SemGrade <= 86)
+    {
+        TransmutedGrade = 2.25;
+    }
+    else if (SemGrade >= 87 && SemGrade <= 88)
+    {
+        TransmutedGrade = 2.00;
+    }
+    else if (SemGrade >= 89 && SemGrade <= 91)
+    {
+        TransmutedGrade = 1.75;
+    }
+    else if (SemGrade >= 92 && SemGrade <= 93)
+    {
+        TransmutedGrade = 1.50;
+    }
+    else if (SemGrade >= 94 && SemGrade <= 95)
+    {
+        TransmutedGrade = 1.25;
+    }
+    else if (SemGrade >= 96 && SemGrade <= 100)
+    {
+        TransmutedGrade = 1.00;
+    }
+}
+
+<table>
+    <tr>
+        <td>Name:</td>
+        <td>@Name </td>
+    </tr>
+    <tr>
+        <td>Prelim: </td>
+        <td>@PrelimGrade </td>
+    </tr>
+    <tr>
+        <td>Final: </td>
+        <td>@FinalGrade</td>
+    </tr>
+    <tr>
+        <td>Semestral Grade:    </td>
+        <td>@SemGrade </td>
+    </tr>
+    <tr>
+        <td>Transmuted Grade:   </td>
+        <td>@TransmutedGrade </td>
+    </tr>
+</table>
