@@ -23,5 +23,10 @@
             <td>@instructor.Rank</td>
             <td>@instructor.HiringDate</td>
             <td> <a asp-action="ShowDetail" asp-route-id="@instructor.Id">Show Details</a> </td>
+            <td> <a asp-action="EditInstructor" asp-route-id="@instructor.Id">Edit Instructor</a> </td>
         </tr>
+
     }
+    </table>
+    <br />
+    <a asp-action="AddInstructor" asp-controller="Instructor"><button>ADD INSTRUCTOR</button></a>
