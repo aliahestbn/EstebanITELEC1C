@@ -1,42 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EstebanITELEC1C.Models;
-
+using EstebanITELEC1C.Services;
 
 namespace EstebanITELEC1C.Controllers
 {
     public class StudentController : Controller
     {
-        List<Student> StudentList = new List<Student>
-            {
-                new Student()
-                {
-                    Id= 1,FirstName = "Kang",LastName = "Daniel", Course = Course.BSIT, AdmissionDate = DateTime.Parse("2022-08-26"), GPA = 1.5, Email = "kdaniel1@gmail.com"
-                },
-                new Student()
-                {
-                    Id= 2,FirstName = "Park",LastName = "Jihoon", Course = Course.BSIS, AdmissionDate = DateTime.Parse("2022-08-07"), GPA = 1, Email = "pjihoon@gmail.com"
-                },
-                new Student()
-                {
-                    Id= 3,FirstName = "Lee",LastName = "Daehwi", Course = Course.BSCS, AdmissionDate = DateTime.Parse("2020-01-25"), GPA = 1.5, Email = "leedaehwi12@gmail.com"
-                }
-            };
+        private readonly IMyFakeDataService _fakeData;
+        public StudentController(IMyFakeDataService fakeData)
+        {
+            _fakeData = fakeData;
+        }
+
         public IActionResult Index()
         {
 
-            return View(StudentList);
+            return View(_fakeData.StudentList);
         }
 
         public IActionResult Student()
         {
 
-            return View(StudentList);
+            return View(_fakeData.StudentList);
         }
 
         public IActionResult ShowDetail(int id)
         {
             //Search for the student whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -53,13 +44,13 @@ namespace EstebanITELEC1C.Controllers
         [HttpPost]
         public IActionResult AddStudent(Student newStudent)
         {
-            StudentList.Add(newStudent);
-            return View("Index", StudentList);
+            _fakeData.StudentList.Add(newStudent);
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult EditStudent(int id)
         {
-            Student? student = StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.Id == id);
             if (student != null)
                 return View(student);
 
@@ -68,7 +59,7 @@ namespace EstebanITELEC1C.Controllers
         [HttpPost]
         public IActionResult EditStudent(Student studentChange)
         {
-            Student? student = StudentList.FirstOrDefault(st => st.Id == studentChange.Id);
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.Id == studentChange.Id);
             if (student != null)
             {
                 student.Id = studentChange.Id;
@@ -79,9 +70,30 @@ namespace EstebanITELEC1C.Controllers
                 student.Course = studentChange.Course;
                 student.AdmissionDate = studentChange.AdmissionDate;
             }
-            return View("Index", StudentList);
+            return RedirectToAction("Student");
 
+        }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.Id == id);
+            if (student != null)
+                return View(student);
+
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult Delete(Student removeStudent)
+        {
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.Id == removeStudent.Id);
+            if (student != null)
+            {
+                 _fakeData.StudentList.Remove(student);
+            }
+            return RedirectToAction("Student");
         }
     }
 }
+
+
 

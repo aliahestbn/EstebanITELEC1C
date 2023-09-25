@@ -1,43 +1,28 @@
 ﻿using EstebanITELEC1C.Models;
+using EstebanITELEC1C.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 namespace EstebanITELEC1C.Controllers
 {
     public class InstructorController : Controller
     {
-        List<Instructor> InstructorList = new List<Instructor>() {
-            new Instructor()
-                {
-                Id= 1,
-                FirstName="Aliah",
-                LastName="Esteban",
-                IsTenured=true,
-                Rank=Rank.Professor,
-                HiringDate=DateTime.Parse("05/05/2023")
-            },
-            new Instructor()
-                {
-                    Id= 2,
-                FirstName="Park",
-                LastName="Jihoon",
-                IsTenured=true,
-                Rank=Rank.AssistantProfessor,
-                HiringDate=DateTime.Parse("05/05/2023")
-            }
-
-            };
-
+        private readonly IMyFakeDataService _fakeData;
+        public InstructorController(IMyFakeDataService fakeData)
+        {
+            _fakeData = fakeData;
+        }
 
         public IActionResult Instructor()
         {
 
-            return View(InstructorList);
+            return View(_fakeData.InstructorList);
 
         }
         public IActionResult ShowDetail(int id)
         {
             //Search for the student whose id matches the given id
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)//was an student found?
                 return View(instructor);
@@ -53,13 +38,13 @@ namespace EstebanITELEC1C.Controllers
         [HttpPost]
         public IActionResult AddInstructor(Instructor newInstructor)
         {
-            InstructorList.Add(newInstructor);
-            return View("Instructor", InstructorList);
+            _fakeData.InstructorList.Add(newInstructor);
+            return RedirectToAction("Instructor");
         }
         [HttpGet]
         public IActionResult EditInstructor(int id)
         {
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.Id == id);
             if (instructor != null)
                 return View(instructor);
 
@@ -68,7 +53,7 @@ namespace EstebanITELEC1C.Controllers
         [HttpPost]
         public IActionResult EditInstructor(Instructor instructorChange)
         {
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == instructorChange.Id);
+            Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.Id == instructorChange.Id);
             if (instructor != null)
             {
                 instructor.Id= instructorChange.Id;
@@ -78,8 +63,29 @@ namespace EstebanITELEC1C.Controllers
                 instructor.Rank = instructorChange.Rank;
                 instructor.HiringDate = instructorChange.HiringDate;
             }
-            return View("Instructor", InstructorList);
+            return RedirectToAction("Instructor");
 
         }
+
+        [HttpGet]
+        public IActionResult DeleteInstructor(int id)
+        {
+            Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(instructor => instructor.Id == id);
+            if (instructor != null)//was an student found?
+                return View(instructor);
+
+            return NotFound();
+
+        }
+
+        [HttpPost]
+        public IActionResult DeleteInstructor(Instructor delInst)
+        {
+            Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.Id == delInst.Id);
+            _fakeData.InstructorList.Remove(instructor);
+            return RedirectToAction("Instructor");
+
+        }
+
     }
 }

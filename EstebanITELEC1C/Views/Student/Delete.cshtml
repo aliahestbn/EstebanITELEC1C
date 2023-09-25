@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Student;
+
+<h1>Are you sure?</h1>
+
+<form asp-action="DeleteInstructor" method="post">
+    <div class="form-group">
+        <label asp-for="Id">ID</label>
+        <input asp-for="Id" class="form-control" disabled/>
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName">First Name</label>
+        <input asp-for="FirstName" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName">Last Name</label>
+        <input asp-for="LastName" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="AdmissionDate">Date Enrolled</label>
+        <input asp-for="AdmissionDate" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="GPA">GPA</label>
+        <input asp-for="GPA" class="form-control" disabled />
+    </div>
+    <br />
+    <button asp-action="Delete" method="post" class="btn btn-danger">Remove</button>
+    <button onclick="history.back()" class="btn btn-secondary"> Cancel </button>
+
+    </form>
+
+    
+
+@* 
+    <div class="modal fade" id="remove" data-bs-backdrop="static" data-bs-keyboard="false" tabindex"-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5"> Warning!</h1>
+                </div>
+                <div class="modal-body text-light">
+                    Are you sure to delete this Student?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form asp-action="DeleteInstructor" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> *@

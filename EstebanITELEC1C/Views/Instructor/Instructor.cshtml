@@ -5,12 +5,22 @@
 }
 <h1>Instructors</h1>
 <table class="table">
+
+    <tr>
+        <th colspan="8">Instructor</th>
+    </tr>
+
     <tr>
         <th>Id</th>
         <th>Name</th>
         <th>Tenured</th>
         <th>Rank</th>
         <th>Hiring Date</th>
+        <th>Show Instructor</th>
+        <th>Edit Instructor</th>
+        <th>Delete Instructor</th>
+
+
 
     </tr>
 
@@ -22,8 +32,9 @@
             <td>@(instructor.IsTenured ? "Permanent" : "Probationary")</td>
             <td>@instructor.Rank</td>
             <td>@instructor.HiringDate</td>
-            <td> <a asp-action="ShowDetail" asp-route-id="@instructor.Id">Show Details</a> </td>
-            <td> <a asp-action="EditInstructor" asp-route-id="@instructor.Id">Edit Instructor</a> </td>
+            <td><a asp-action="ShowDetail" asp-route-id="@instructor.Id">Show Details</a></td>
+            <td> <a asp-action="EditInstructor" asp-route-id="@instructor.Id">Edit Details</a> </td>
+            <td><a class="btn btn-danger" asp-action="DeleteInstructor" asp-route-id="@instructor.Id">Delete</a> </td>
         </tr>
 
     }

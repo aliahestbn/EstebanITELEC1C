@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Instructor;
+<h1>Are you sure?</h1>
+
+<form asp-action="DeleteInstructor" method="post">
+    <div class="form-group">
+        <label asp-for="Id">ID</label>
+        <input asp-for="Id" class="form-control" disabled/>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FirstName">First Name</label>
+        <input asp-for="FirstName" class="form-control" disabled />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName">Last Name</label>
+        <input asp-for="LastName" class="form-control" disabled />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Rank">Course</label>
+        <select asp-for="Rank" asp-items="Html.GetEnumSelectList(typeof(Rank))" class="form-control" disabled></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="HiringDate">Hiring Date</label>
+        <input asp-for="HiringDate" class="form-control" disabled />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsTenured">Status</label>
+        <select asp-for="IsTenured" class="form-control" disabled>
+            <option disabled selected></option>
+            <option value="true">Permanent</option>
+            <option value="false">Probationary</option>
+        </select>
+
+    </div>
+    <br />
+    <button asp-action="DeleteInstructor" method="post" class="btn btn-danger">Remove</button>
+    <button onclick="history.back()" class="btn btn-secondary"> Cancel </button>
+
+</form>
+
+
+@* <div class="modal fade" id="remove" data-bs-backdrop="static" data-bs-keyboard="false" tabindex"-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5"> Warning!</h1>
+            </div>
+            <div class="modal-body text-light">
+                Are you sure to delete this Student?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form asp-action="Delete" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> *@
