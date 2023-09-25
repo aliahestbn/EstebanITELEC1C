@@ -70,7 +70,7 @@ namespace EstebanITELEC1C.Controllers
                 student.Course = studentChange.Course;
                 student.AdmissionDate = studentChange.AdmissionDate;
             }
-            return RedirectToAction("Student");
+            return RedirectToAction("Index");
 
         }
         [HttpGet]
@@ -90,7 +90,7 @@ namespace EstebanITELEC1C.Controllers
             {
                  _fakeData.StudentList.Remove(student);
             }
-            return RedirectToAction("Student");
+            return RedirectToAction("Index");
         }
     }
 }
