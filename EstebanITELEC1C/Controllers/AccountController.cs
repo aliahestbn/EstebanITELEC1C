@@ -20,7 +20,8 @@ namespace EstebanITELEC1C.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult login()
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
         }
@@ -50,11 +51,11 @@ namespace EstebanITELEC1C.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View("Register");
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel registerInfo) { }
+        public async Task<IActionResult> Register(RegisterViewModel userEnteredData)
         {
             if (!ModelState.IsValid)
             {

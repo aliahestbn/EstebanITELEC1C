@@ -15,7 +15,7 @@ namespace EstebanITELEC1C.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Instructor()
         {
 
             return View(_dbContext.Instructors);
