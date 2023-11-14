@@ -1,73 +1,83 @@
-﻿using Microsoft.EntityFrameworkCore;
-namespace EstebanITELEC1C.Models;
+﻿using EstebanITELEC1C.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext : DbContext
+
+namespace EstebanITELEC1C.Data
 {
-
-    public DbSet<Student> Students { get; set; }
-    public DbSet<Instructor> Instructors { get; set; }
-
-    public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
+    public class AppDbContext : IdentityDbContext<User>
     {
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
 
-    }
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Instructor>().HasData(
-            new Instructor()
-            {
-                Id = 1,
-                FirstName = "Aliah",
-                LastName = "Esteban",
-                IsTenured = true,
-                Rank = Rank.Professor,
-                HiringDate = DateTime.Parse("05/05/2023")
-            },
-            new Instructor()
-            {
-                Id = 2,
-                FirstName = "Park",
-                LastName = "Jihoon",
-                IsTenured = true,
-                Rank = Rank.AssistantProfessor,
-                HiringDate = DateTime.Parse("05/05/2023")
-            }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-            );
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Student>().HasData(
-               new Student()
-               {
-                   Id = 1,
-                   FirstName = "Kang",
-                   LastName = "Daniel",
-                   Course = Course.BSIT,
-                   AdmissionDate = DateTime.Parse("2022-08-26"),
-                   GPA = 1.5,
-                   Email = "kdaniel1@gmail.com"
-               },
+            modelBuilder.Entity<Student>().HasData(
+                new Student()
+                {
+                    Id = 1,
+                    FirstName = "Steve",
+                    LastName = "De Vera",
+                    Course = Course.BSIT,
+                    AdmissionDate = DateTime.Parse("2012-03-04"),
+                    GPA = 1.5,
+                    Email = "steve.devera.cics@ust.edu.ph"
+                },
                 new Student()
                 {
                     Id = 2,
-                    FirstName = "Park",
-                    LastName = "Jihoon",
+                    FirstName = "Gab",
+                    LastName = "Montano",
                     Course = Course.BSIS,
-                    AdmissionDate = DateTime.Parse("2022-08-07"),
-                    GPA = 1,
-                    Email = "pjihoon@gmail.com"
+                    AdmissionDate = DateTime.Parse("2012-03-04"),
+                    GPA = 1.5,
+                    Email = "gab.montano.cics@ust.edu.ph"
                 },
                 new Student()
                 {
                     Id = 3,
-                    FirstName = "Lee",
-                    LastName = "Daehwi",
+                    FirstName = "Kobe",
+                    LastName = "Irving",
                     Course = Course.BSCS,
-                    AdmissionDate = DateTime.Parse("2020-01-25"),
+                    AdmissionDate = DateTime.Parse("2012-03-04"),
                     GPA = 1.5,
-                    Email = "leedaehwi12@gmail.com"
+                    Email = "kobe.irving.cics@ust.edu.ph"
                 }
+            );
 
-           );
+            modelBuilder.Entity<Instructor>().HasData(
+                new Instructor()
+                {
+                    Id = 1,
+                    FirstName = "Gab",
+                    LastName = "Montano",
+                    IsTenured = true,
+                    Rank = Rank.Instructor,
+                    HiringDate = DateTime.Parse("05/06/2078")
+                },
+                new Instructor()
+                {
+                    Id = 2,
+                    FirstName = "James",
+                    LastName = "Durant",
+                    IsTenured = false,
+                    Rank = Rank.AssistantProfessor,
+                    HiringDate = DateTime.Parse("05/06/2078")
+                },
+                new Instructor()
+                {
+                    Id = 3,
+                    FirstName = "Leo",
+                    LastName = "Lintag",
+                    IsTenured = true,
+                    Rank = Rank.Professor,
+                    HiringDate = DateTime.Parse("05/06/2078")
+                }
+            );
+        }
     }
 }

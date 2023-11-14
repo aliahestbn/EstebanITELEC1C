@@ -2,9 +2,6 @@
 using EstebanITELEC1C.Models;
 using EstebanITELEC1C.Services;
 
-namespace PalomoITELEC1C.Services
-
-{
     public class MyFakeDataService : IMyFakeDataService
     {
         public List<Student> StudentList { get; }
@@ -55,4 +52,3 @@ namespace PalomoITELEC1C.Services
         }
 
     }
-}

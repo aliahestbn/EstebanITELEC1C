@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EstebanITELEC1C.Models;
 using EstebanITELEC1C.Services;
+using EstebanITELEC1C.Data;
+
 
 namespace EstebanITELEC1C.Controllers
 {
@@ -11,19 +13,14 @@ namespace EstebanITELEC1C.Controllers
         {
             _dbContext = dbContext;
         }
-
         public IActionResult Index()
         {
-
             return View(_dbContext.Students);
         }
-
         public IActionResult Student()
         {
-
-            return View(_dbContext.Students);
+            return View();
         }
-
         public IActionResult ShowDetail(int id)
         {
             //Search for the student whose id matches the given id
@@ -33,7 +30,6 @@ namespace EstebanITELEC1C.Controllers
                 return View(student);
 
             return NotFound();
-
         }
 
         [HttpGet]
@@ -48,38 +44,45 @@ namespace EstebanITELEC1C.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
+
         [HttpGet]
-        public IActionResult EditStudent(int id)
+        public IActionResult Edit(int id)
         {
+            //Search for the student whose id matches the given id
             Student? student = _dbContext.Students.FirstOrDefault(st => st.Id == id);
-            if (student != null)
+
+            if (student != null)//was an student found?
                 return View(student);
 
             return NotFound();
         }
+
         [HttpPost]
-        public IActionResult EditStudent(Student studentChange)
+        public IActionResult Edit(Student studentChange)
         {
             Student? student = _dbContext.Students.FirstOrDefault(st => st.Id == studentChange.Id);
+
             if (student != null)
             {
                 student.Id = studentChange.Id;
                 student.FirstName = studentChange.FirstName;
                 student.LastName = studentChange.LastName;
                 student.Email = studentChange.Email;
-                student.GPA = studentChange.GPA;
                 student.Course = studentChange.Course;
+                student.GPA = studentChange.GPA;
                 student.AdmissionDate = studentChange.AdmissionDate;
+                _dbContext.SaveChanges();
             }
-            _dbContext.SaveChanges();
             return RedirectToAction("Index");
-
         }
+
         [HttpGet]
         public IActionResult Delete(int id)
         {
+            //Search for the student whose id matches the given id
             Student? student = _dbContext.Students.FirstOrDefault(st => st.Id == id);
-            if (student != null)
+
+            if (student != null)//was an student found?
                 return View(student);
 
             return NotFound();
@@ -88,15 +91,16 @@ namespace EstebanITELEC1C.Controllers
         public IActionResult Delete(Student removeStudent)
         {
             Student? student = _dbContext.Students.FirstOrDefault(st => st.Id == removeStudent.Id);
+
             if (student != null)
             {
-                 _dbContext.Students.Remove(student);
+                _dbContext.Students.Remove(student);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
             }
-            _dbContext.SaveChanges();
-            return RedirectToAction("Index");
+            return NotFound();
         }
+
     }
+
 }
-
-
-
