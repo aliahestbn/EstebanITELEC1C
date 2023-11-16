@@ -25,6 +25,11 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
+context.Database.EnsureCreated();
+//context.Database.EnsureDeleted();
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -35,16 +40,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
-context.Database.EnsureCreated();
-
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
+
+app.UseHttpsRedirection();
 
 app.MapControllerRoute(
     name: "default",

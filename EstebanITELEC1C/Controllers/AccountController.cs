@@ -28,11 +28,14 @@ namespace EstebanITELEC1C.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginInfo)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             var result = await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, loginInfo.RememberMe, false);
-
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Instructor");
+                return RedirectToAction("Instrtuctor", "Instructor");
             }
             else
             {
@@ -45,7 +48,7 @@ namespace EstebanITELEC1C.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Instructor");
+            return RedirectToAction("Instructor", "Instructor");
         }
 
         [HttpGet]
@@ -57,7 +60,7 @@ namespace EstebanITELEC1C.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel userEnteredData)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 User newUser = new User();
                 newUser.UserName = userEnteredData.UserName;
@@ -70,7 +73,7 @@ namespace EstebanITELEC1C.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Instructor");
+                    return RedirectToAction("Instructor", "Instructor");
                 }
                 else
                 {
